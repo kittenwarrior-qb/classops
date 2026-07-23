@@ -32,6 +32,8 @@ Không phải báo cáo. Chỉ cần đủ để tương lai hiểu.
 **Quyết định:** Giữ dự án ở GĐ 0 — chưa viết code sản phẩm; chỉ commit khung repo và tài liệu.
 **Nghi ngờ:** Chưa biết quản lý thủ công gây thiệt hại bao nhiêu, ai quyết định, và thầy có cần điểm danh hay không.
 
+**Quyết định bổ sung:** Theo yêu cầu của người dùng, bắt đầu prototype trước khi đủ điều kiện qua cửa GĐ 0. Prototype chỉ dùng dữ liệu ảo và giới hạn ở các luồng dùng chung A7/A10 cùng thao tác ghi nhận vắng để kiểm tra với giáo viên; chưa xem đây là xác nhận nhu cầu điểm danh.
+
 Mục **Nghi ngờ** quan trọng nhất. Đó là danh sách những thứ cần đi kiểm chứng.
 
 ---

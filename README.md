@@ -87,3 +87,15 @@ Sau đó: đọc `docs/00-gia-dinh.md`, rồi đi quan sát một buổi học v
 `docs/quan-sat/mau-quan-sat.md`.
 
 Chưa viết code.
+
+## Prototype thử sớm
+
+Theo yêu cầu làm trước khi hoàn thành GĐ 0, prototype không backend nằm trong
+`prototype/`. Chỉ dùng dữ liệu ảo để kiểm tra luồng với giáo viên.
+
+```bash
+python -m http.server 4173 --directory prototype
+```
+
+Mở `http://localhost:4173/`. Prototype hiện có chọn lớp, chạm để đánh dấu
+người vắng, sinh tin nhắn và chia sẻ hoặc chép tin nhắn.
