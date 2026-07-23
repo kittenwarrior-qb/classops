@@ -1,0 +1,132 @@
+{
+  "_note": "Du lieu ao hoan toan. Khong chua thong tin that cua bat ky ai. File nay duoc commit len repo. File seed.json (neu co) phai nam trong .gitignore.",
+  "_version": 1,
+
+  "studio": {
+    "id": "sd-01",
+    "name": "Studio Mẫu",
+    "settings": {
+      "version": 1,
+      "studentNoun": "học viên",
+      "creditPolicy": "monthly",
+      "lowCreditThreshold": 3,
+      "expiryWarningDays": 7,
+      "messageTemplate": "Lớp {tenLop} ngày {ngay} có mặt {soCoMat}/{tongSo} {danhTu}.\nVắng: {danhSachVang}.\n{sapHetHan}"
+    }
+  },
+
+  "branches": [
+    { "id": "cn-01", "name": "Chi nhánh 1" },
+    { "id": "cn-02", "name": "Chi nhánh 2" },
+    { "id": "cn-03", "name": "Chi nhánh 3" }
+  ],
+
+  "teachers": [
+    { "id": "gv-01", "name": "Thầy giáo 1", "email": "gv01@example.com", "role": "teacher" },
+    { "id": "gv-02", "name": "Thầy giáo 2", "email": "gv02@example.com", "role": "teacher" },
+    { "id": "gv-03", "name": "Thầy giáo 3", "email": "gv03@example.com", "role": "teacher" },
+    { "id": "gv-00", "name": "Chủ studio", "email": "owner@example.com", "role": "owner" }
+  ],
+
+  "classes": [
+    {
+      "id": "lh-01",
+      "branchId": "cn-01",
+      "teacherId": "gv-01",
+      "name": "Lớp 1",
+      "shift": "Ca 1",
+      "schedule": "thứ 2 & 4 · 18h30 - 19h30",
+      "capacity": 25
+    },
+    {
+      "id": "lh-02",
+      "branchId": "cn-01",
+      "teacherId": "gv-01",
+      "name": "Lớp 2",
+      "shift": "Ca 2",
+      "schedule": "thứ 2 & 4 · 19h45 - 20h45",
+      "capacity": 20
+    },
+    {
+      "id": "lh-03",
+      "branchId": "cn-02",
+      "teacherId": "gv-02",
+      "name": "Lớp 3",
+      "shift": "Ca 1",
+      "schedule": "thứ 3 & 5 · 18h00 - 19h00",
+      "capacity": 20
+    },
+    {
+      "id": "lh-04",
+      "branchId": "cn-03",
+      "teacherId": "gv-03",
+      "name": "Lớp 4",
+      "shift": "Ca 3",
+      "schedule": "thứ 7 · 09h00 - 10h30",
+      "capacity": 15
+    }
+  ],
+
+  "students": [
+    { "id": "hv-001", "name": "Học viên 1",  "startsOn": "2026-05-01", "expiresOn": "2026-08-01" },
+    { "id": "hv-002", "name": "Học viên 2",  "startsOn": "2026-05-01", "expiresOn": "2026-08-01" },
+    { "id": "hv-003", "name": "Học viên 3",  "startsOn": "2026-04-15", "expiresOn": "2026-07-15" },
+    { "id": "hv-004", "name": "Học viên 4",  "startsOn": "2026-06-01", "expiresOn": "2026-09-01" },
+    { "id": "hv-005", "name": "Học viên 5",  "startsOn": "2026-06-01", "expiresOn": "2026-09-01" },
+    { "id": "hv-006", "name": "Học viên 6",  "startsOn": "2026-05-20", "expiresOn": "2026-08-20" },
+    { "id": "hv-007", "name": "Học viên 7",  "startsOn": "2026-04-28", "expiresOn": "2026-07-28" },
+    { "id": "hv-008", "name": "Học viên 8",  "startsOn": "2026-07-01", "expiresOn": "2026-10-01" },
+    { "id": "hv-009", "name": "Học viên 9",  "startsOn": "2026-07-01", "expiresOn": "2026-10-01" },
+    { "id": "hv-010", "name": "Học viên 10", "startsOn": "2026-04-10", "expiresOn": "2026-07-10" },
+    { "id": "hv-011", "name": "Học viên 11", "startsOn": "2026-05-05", "expiresOn": "2026-08-05" },
+    { "id": "hv-012", "name": "Học viên 12", "startsOn": "2026-05-05", "expiresOn": "2026-08-05" },
+    { "id": "hv-013", "name": "Học viên 13", "startsOn": "2026-06-15", "expiresOn": "2026-09-15" },
+    { "id": "hv-014", "name": "Học viên 14", "startsOn": "2026-06-15", "expiresOn": "2026-09-15" },
+    { "id": "hv-015", "name": "Học viên 15", "startsOn": "2026-04-20", "expiresOn": "2026-07-20" },
+    { "id": "hv-016", "name": "Học viên 16", "startsOn": "2026-05-10", "expiresOn": "2026-08-10" },
+    { "id": "hv-017", "name": "Học viên 17", "startsOn": "2026-05-10", "expiresOn": "2026-08-10" },
+    { "id": "hv-018", "name": "Học viên 18", "startsOn": "2026-06-20", "expiresOn": "2026-09-20" },
+    { "id": "hv-019", "name": "Học viên 19", "startsOn": "2026-07-05", "expiresOn": "2026-10-05" },
+    { "id": "hv-020", "name": "Học viên 20", "startsOn": "2026-04-25", "expiresOn": "2026-07-25" },
+    { "id": "hv-021", "name": "Học viên 21", "startsOn": "2026-05-15", "expiresOn": "2026-08-15" },
+    { "id": "hv-022", "name": "Học viên 22", "startsOn": "2026-05-15", "expiresOn": "2026-08-15" },
+    { "id": "hv-023", "name": "Học viên 23", "startsOn": "2026-06-25", "expiresOn": "2026-09-25" },
+    { "id": "hv-024", "name": "Học viên 24", "startsOn": "2026-07-10", "expiresOn": "2026-10-10" },
+    { "id": "hv-025", "name": "Học viên 25", "startsOn": "2026-04-05", "expiresOn": "2026-07-05" },
+    { "id": "hv-026", "name": "Học viên 26", "startsOn": "2026-06-05", "expiresOn": "2026-09-05" },
+    { "id": "hv-027", "name": "Học viên 27", "startsOn": "2026-06-05", "expiresOn": "2026-09-05" },
+    { "id": "hv-028", "name": "Học viên 28 với tên rất dài dùng để kiểm tra bố cục giao diện", "startsOn": "2026-05-25", "expiresOn": "2026-08-25" },
+    { "id": "hv-029", "name": "Học viên 29 Ẩ Ợ Ỹ Ễ Ằ", "startsOn": "2026-06-10", "expiresOn": "2026-09-10" },
+    { "id": "hv-030", "name": "Học viên 30", "startsOn": "2026-07-15", "expiresOn": "2026-10-15" }
+  ],
+
+  "enrollments": [
+    { "classId": "lh-01", "studentIds": ["hv-001","hv-002","hv-003","hv-004","hv-005","hv-006","hv-007","hv-008","hv-009","hv-010","hv-028","hv-029"] },
+    { "classId": "lh-02", "studentIds": ["hv-011","hv-012","hv-013","hv-014","hv-015","hv-016","hv-017"] },
+    { "classId": "lh-03", "studentIds": ["hv-018","hv-019","hv-020","hv-021","hv-022","hv-023"] },
+    { "classId": "lh-04", "studentIds": ["hv-024","hv-025","hv-026","hv-027","hv-030"] }
+  ],
+
+  "attendanceHistory": [
+    { "classId": "lh-01", "date": "2026-07-01", "absentIds": ["hv-003"], "recordedBy": "gv-01" },
+    { "classId": "lh-01", "date": "2026-07-06", "absentIds": [], "recordedBy": "gv-01" },
+    { "classId": "lh-01", "date": "2026-07-08", "absentIds": ["hv-003","hv-007"], "recordedBy": "gv-01" },
+    { "classId": "lh-01", "date": "2026-07-13", "absentIds": ["hv-003"], "recordedBy": "gv-01" },
+    { "classId": "lh-01", "date": "2026-07-15", "absentIds": ["hv-003","hv-010"], "recordedBy": "gv-01" },
+    { "classId": "lh-01", "date": "2026-07-20", "absentIds": ["hv-003"], "recordedBy": "gv-01" },
+    { "classId": "lh-01", "date": "2026-07-22", "absentIds": ["hv-005"], "recordedBy": "gv-01" },
+
+    { "classId": "lh-02", "date": "2026-07-01", "absentIds": ["hv-015"], "recordedBy": "gv-01" },
+    { "classId": "lh-02", "date": "2026-07-08", "absentIds": [], "recordedBy": "gv-01" },
+    { "classId": "lh-02", "date": "2026-07-15", "absentIds": ["hv-011","hv-012"], "recordedBy": "gv-01" },
+    { "classId": "lh-02", "date": "2026-07-22", "absentIds": ["hv-015"], "recordedBy": "gv-01" },
+
+    { "classId": "lh-03", "date": "2026-07-02", "absentIds": [], "recordedBy": "gv-02" },
+    { "classId": "lh-03", "date": "2026-07-09", "absentIds": ["hv-020"], "recordedBy": "gv-02" },
+    { "classId": "lh-03", "date": "2026-07-16", "absentIds": ["hv-020"], "recordedBy": "gv-02" },
+
+    { "classId": "lh-04", "date": "2026-07-04", "absentIds": ["hv-025"], "recordedBy": "gv-03" },
+    { "classId": "lh-04", "date": "2026-07-11", "absentIds": [], "recordedBy": "gv-03" },
+    { "classId": "lh-04", "date": "2026-07-18", "absentIds": ["hv-024"], "recordedBy": "gv-03" }
+  ]
+}

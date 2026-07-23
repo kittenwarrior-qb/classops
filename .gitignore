@@ -1,0 +1,41 @@
+# Du lieu that - KHONG BAO GIO commit
+seed.json
+docs/quan-sat/*.md
+!docs/quan-sat/README.md
+!docs/quan-sat/mau-quan-sat.md
+*.real.json
+/du-lieu-that/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# Vercel / Drizzle
+.vercel
+drizzle/meta/_journal.json.bak
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Test
+coverage/
+playwright-report/
+test-results/
