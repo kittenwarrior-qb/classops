@@ -11,3 +11,16 @@ export type StudioContext = {
   userId: string
   role: StudioRole
 }
+
+export type ClassSummary = {
+  id: string
+  name: string
+  branch: string
+  schedule: string
+  studentCount: number
+}
+
+export type ClassesResponse = {
+  studioId: string
+  items: ClassSummary[]
+}

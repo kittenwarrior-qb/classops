@@ -156,3 +156,12 @@ Cuối mỗi giai đoạn, viết nửa trang:
 4. Sẽ làm khác gì lần sau?
 
 Câu 3 là câu duy nhất có giá trị. Ba câu kia chỉ để dẫn tới nó.
+
+### 2026-07-23 — Quyết định xây trước khi qua cửa GĐ0
+
+Người dùng yêu cầu tiếp tục triển khai dù chưa có báo cáo quan sát đủ hai buổi,
+phỏng vấn giáo viên, hoặc số liệu gia hạn. Đây là quyết định làm trước khi có
+bằng chứng. Rủi ro: có thể tối ưu sai vấn đề giữa điểm danh và nhắc gia hạn.
+Mốc triển khai tiếp theo phải giữ phạm vi nhỏ, không thiết kế thêm mô hình gói,
+credits, freezes hoặc makeups, và phải quay lại kiểm chứng thực tế trước khi
+coi sản phẩm là đã được xác nhận.
