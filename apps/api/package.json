@@ -12,7 +12,7 @@
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand",
-    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\""
+    "format:check": "prettier --check \"src/**/*.ts\" \"!src/generated/**/*.ts\" \"test/**/*.ts\""
   },
   "dependencies": {
     "@classops/contracts": "workspace:*",

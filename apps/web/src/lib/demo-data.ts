@@ -1,4 +1,4 @@
-export type DemoStudent = { id: string; name: string; expiresOn: string };
+export type DemoStudent = { id: string; name: string; expiresOn?: string };
 export type DemoClass = {
   id: string;
   name: string;

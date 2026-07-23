@@ -27,6 +27,7 @@ export const vi = {
     absent: "vắng",
     present: "có mặt",
     all: "Tất cả",
+    syncFailed: "Chưa gửi được, đang thử lại",
   },
   dashboard: {
     greeting: "Hôm nay lớp nào học?",

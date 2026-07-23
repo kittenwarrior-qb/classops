@@ -30,6 +30,7 @@ import {
   type DemoStudent,
 } from "../lib/demo-data";
 import { matchesSearch, sortByVietnameseName } from "../lib/vietnamese";
+import { classOpsApi, configuredStudioId } from "../lib/api";
 
 type View = "overview" | "classes" | "attendance" | "renewals" | "settings";
 type AttendanceState = Record<string, DemoAttendance[]>;
@@ -38,6 +39,8 @@ const today = formatDateInput(new Date());
 
 export function Dashboard() {
   const [view, setView] = useState<View>("overview");
+  const [classes, setClasses] = useState(demoClasses);
+  const [students, setStudents] = useState(demoStudents);
   const [selectedClassId, setSelectedClassId] = useState(demoClasses[0].id);
   const [search, setSearch] = useState("");
   const [absentIds, setAbsentIds] = useState<string[]>([]);
@@ -49,6 +52,27 @@ export function Dashboard() {
   const [renewedIds, setRenewedIds] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    if (!configuredStudioId) return;
+    Promise.all([classOpsApi.listClasses(), classOpsApi.listStudents()])
+      .then(([classResponse, studentResponse]) => {
+        if (!classResponse.items.length) return;
+        setClasses(
+          classResponse.items.map((item) => ({
+            id: item.id,
+            name: item.name,
+            schedule: item.schedule,
+            branch: item.branch,
+            teacher: "",
+            studentIds: item.studentIds,
+          })),
+        );
+        setStudents(studentResponse.items);
+        setSelectedClassId(classResponse.items[0]?.id ?? "");
+      })
+      .catch(() => setNotice(t("common.syncFailed")));
+  }, []);
 
   useEffect(() => {
     const storedAttendance = window.localStorage.getItem("classops.attendance");
@@ -70,13 +94,15 @@ export function Dashboard() {
   }, [renewedIds]);
 
   const selectedClass =
-    demoClasses.find((item) => item.id === selectedClassId) ?? demoClasses[0];
+    classes.find((item) => item.id === selectedClassId) ?? classes[0];
   const selectedStudents = selectedClass.studentIds
-    .map((id) => demoStudents.find((student) => student.id === id))
+    .map((id) => students.find((student) => student.id === id))
     .filter((student): student is DemoStudent => Boolean(student));
-  const expiringStudents = demoStudents.filter(
+  const expiringStudents = students.filter(
     (student) =>
-      daysUntil(student.expiresOn) <= 14 && !renewedIds.includes(student.id),
+      student.expiresOn !== undefined &&
+      daysUntil(student.expiresOn) <= 14 &&
+      !renewedIds.includes(student.id),
   );
   const filteredStudents = sortByVietnameseName(
     selectedStudents.filter((student) => matchesSearch(student.name, search)),
@@ -104,7 +130,19 @@ export function Dashboard() {
     );
   }
 
-  function saveAttendance() {
+  async function saveAttendance() {
+    if (configuredStudioId) {
+      try {
+        await classOpsApi.saveAttendance({
+          classId: selectedClass.id,
+          date: today,
+          absentStudentIds: absentIds,
+        });
+      } catch {
+        setNotice(t("common.syncFailed"));
+        return;
+      }
+    }
     setAttendance((current) => ({
       ...current,
       [selectedClass.id]: [
@@ -154,7 +192,7 @@ export function Dashboard() {
   function exportCsv() {
     const rows = [
       "id,name,expiresOn",
-      ...demoStudents.map(
+      ...students.map(
         (student) => `${student.id},"${student.name}",${student.expiresOn}`,
       ),
     ];
@@ -231,21 +269,21 @@ export function Dashboard() {
         )}
         {view === "overview" && (
           <Overview
-            classes={demoClasses}
+            classes={classes}
             expiringCount={expiringStudents.length}
             onView={selectView}
           />
         )}
         {view === "classes" && (
           <Classes
-            classes={demoClasses}
-            students={demoStudents}
+            classes={classes}
+            students={students}
             onSelect={selectClass}
           />
         )}
         {view === "attendance" && (
           <Attendance
-            classes={demoClasses}
+            classes={classes}
             selected={selectedClass}
             students={filteredStudents}
             search={search}
@@ -513,7 +551,9 @@ function Attendance({
         <div className="student-list">
           {students.map((student) => {
             const absent = absentIds.includes(student.id);
-            const expiresSoon = daysUntil(student.expiresOn) <= 14;
+            const expiresSoon =
+              student.expiresOn !== undefined &&
+              daysUntil(student.expiresOn) <= 14;
             return (
               <button
                 key={student.id}
@@ -531,7 +571,7 @@ function Attendance({
                   ) : expiresSoon ? (
                     <span className="student-meta expiry-meta">
                       {t("attendance.expiryStatus", {
-                        date: formatDate(student.expiresOn),
+                        date: formatDate(student.expiresOn ?? "9999-12-31"),
                       })}
                     </span>
                   ) : null}
@@ -611,7 +651,7 @@ function Renewals({
           <div className="empty-state">{t("renewals.empty")}</div>
         ) : (
           students.map((student) => {
-            const days = daysUntil(student.expiresOn);
+            const days = daysUntil(student.expiresOn ?? "9999-12-31");
             return (
               <article className="renewal-row" key={student.id}>
                 <div>
@@ -620,7 +660,7 @@ function Renewals({
                     {days < 0
                       ? t("renewals.expired")
                       : t("renewals.warning", { days })}{" "}
-                    · {formatDate(student.expiresOn)}
+                    · {formatDate(student.expiresOn ?? "9999-12-31")}
                   </small>
                 </div>
                 <div className="row-actions">

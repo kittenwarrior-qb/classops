@@ -18,6 +18,7 @@ export type ClassSummary = {
   branch: string;
   schedule: string;
   studentCount: number;
+  studentIds: string[];
 };
 
 export type ClassesResponse = {

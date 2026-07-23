@@ -16,6 +16,7 @@ export class PrismaClassesRepository implements ClassesRepository {
       orderBy: { name: "asc" },
       include: {
         _count: { select: { enrollments: { where: { leftAt: null } } } },
+        enrollments: { where: { leftAt: null }, select: { studentId: true } },
       },
     });
 
@@ -25,6 +26,7 @@ export class PrismaClassesRepository implements ClassesRepository {
       branch: item.branch,
       schedule: item.schedule,
       studentCount: item._count.enrollments,
+      studentIds: item.enrollments.map((enrollment) => enrollment.studentId),
     }));
   }
 }
