@@ -1,10 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { Dashboard } from './components/dashboard'
-import './styles.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { Dashboard } from "./components/dashboard";
+import "./styles.css";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Dashboard />
   </StrictMode>,
-)
+);
