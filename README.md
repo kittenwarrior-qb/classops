@@ -86,7 +86,29 @@ git commit -m "chore: project scaffold and docs"
 Sau đó: đọc `docs/00-gia-dinh.md`, rồi đi quan sát một buổi học với mẫu ở
 `docs/quan-sat/mau-quan-sat.md`.
 
-Chưa viết code.
+## Ứng dụng local
+
+Ứng dụng Next.js nằm trong `src/`. Bản hiện tại dùng dữ liệu ảo và lưu trạng
+thái thao tác trong trình duyệt để có thể test ngay, chưa kết nối database hoặc
+đăng nhập thật.
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Mở `http://localhost:3000/`.
+
+Chạy toàn bộ kiểm tra trước khi commit:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+CI tương ứng nằm ở `.github/workflows/ci.yml`.
 
 ## Prototype thử sớm
 

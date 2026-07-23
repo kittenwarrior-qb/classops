@@ -34,6 +34,20 @@ Không phải báo cáo. Chỉ cần đủ để tương lai hiểu.
 
 **Quyết định bổ sung:** Theo yêu cầu của người dùng, bắt đầu prototype trước khi đủ điều kiện qua cửa GĐ 0. Prototype chỉ dùng dữ liệu ảo và giới hạn ở các luồng dùng chung A7/A10 cùng thao tác ghi nhận vắng để kiểm tra với giáo viên; chưa xem đây là xác nhận nhu cầu điểm danh.
 
+## 2026-07-23 — Mốc ứng dụng local
+
+**Làm:** Dựng Next.js 15 App Router, giao diện lõi, điểm danh, theo dõi gia hạn, sinh tin nhắn, CSV, i18n, test và CI.
+**Kẹt:** Chưa có credentials hoặc bằng chứng vận hành để triển khai Auth.js/Postgres và chọn chắc kịch bản A/B.
+**Quyết định:** Bản này dùng dữ liệu ảo và `localStorage`, đủ để người dùng test luồng trước; không coi đây là backend production.
+**Nghi ngờ:** Các luồng điểm danh/gia hạn vẫn là giả định sản phẩm, cần được giáo viên chỉ ra chỗ sai.
+
+## 2026-07-23 — Chỉnh UI theo bối cảnh mệt mỏi
+
+**Làm:** Giảm nhiễu màn hình điểm danh: một thẻ tập trung, hướng dẫn ngắn, avatar nhẹ, trạng thái ngoại lệ rõ, nút lưu lớn; nav chuyển xuống đáy ở mobile.
+**Kẹt:** Ảnh tham khảo dùng dấu tích cho người có mặt, nhưng nguyên tắc dự án yêu cầu người có mặt hiển thị im lặng nên giữ hàng có mặt trung tính.
+**Quyết định:** Dùng vàng ấm cho vắng, không dùng đỏ; chỉ hiện thông tin phụ khi sắp hết hạn hoặc vắng.
+**Nghi ngờ:** Cần đưa cho giáo viên dùng trong ca thật để biết lượng thông tin này đã đủ hay vẫn còn thừa.
+
 Mục **Nghi ngờ** quan trọng nhất. Đó là danh sách những thứ cần đi kiểm chứng.
 
 ---
