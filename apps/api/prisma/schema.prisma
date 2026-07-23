@@ -1,0 +1,103 @@
+generator client {
+  provider   = "prisma-client"
+  output     = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  owner
+  teacher
+}
+
+model Studio {
+  id         String   @id @default(uuid()) @db.Uuid
+  name       String
+  settings   Json     @default("{}")
+  createdAt  DateTime @default(now()) @map("created_at")
+  users      User[]
+  classes    Class[]
+  students   Student[]
+  enrollments Enrollment[]
+  auditLogs  AuditLog[]
+
+  @@map("studios")
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  studioId  String   @db.Uuid @map("studio_id")
+  email     String   @unique
+  name      String
+  role      UserRole
+  createdAt DateTime @default(now()) @map("created_at")
+  studio    Studio   @relation(fields: [studioId], references: [id])
+  classes   Class[]
+  auditLogs AuditLog[]
+
+  @@index([studioId])
+  @@map("users")
+}
+
+model Class {
+  id          String   @id @default(uuid()) @db.Uuid
+  studioId    String   @db.Uuid @map("studio_id")
+  name        String
+  branch      String
+  schedule    String
+  teacherId   String?  @db.Uuid @map("teacher_id")
+  archivedAt  DateTime? @map("archived_at")
+  studio      Studio   @relation(fields: [studioId], references: [id])
+  teacher     User?    @relation(fields: [teacherId], references: [id])
+  enrollments Enrollment[]
+
+  @@index([studioId, archivedAt])
+  @@map("classes")
+}
+
+model Student {
+  id          String   @id @default(uuid()) @db.Uuid
+  studioId    String   @db.Uuid @map("studio_id")
+  name        String
+  archivedAt  DateTime? @map("archived_at")
+  studio      Studio   @relation(fields: [studioId], references: [id])
+  enrollments Enrollment[]
+
+  @@index([studioId, archivedAt])
+  @@map("students")
+}
+
+model Enrollment {
+  id        String   @id @default(uuid()) @db.Uuid
+  studioId  String   @db.Uuid @map("studio_id")
+  classId   String   @db.Uuid @map("class_id")
+  studentId String   @db.Uuid @map("student_id")
+  joinedAt  DateTime @map("joined_at") @db.Date
+  leftAt    DateTime? @map("left_at") @db.Date
+  studio    Studio   @relation(fields: [studioId], references: [id])
+  class     Class    @relation(fields: [classId], references: [id])
+  student   Student  @relation(fields: [studentId], references: [id])
+
+  @@index([studioId, classId])
+  @@index([studioId, studentId])
+  @@map("enrollments")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid()) @db.Uuid
+  studioId  String   @db.Uuid @map("studio_id")
+  actorId   String?  @db.Uuid @map("actor_id")
+  action    String
+  entity    String
+  entityId  String   @db.Uuid @map("entity_id")
+  payload   Json
+  createdAt DateTime @default(now()) @map("created_at")
+  studio    Studio   @relation(fields: [studioId], references: [id])
+  actor     User?    @relation(fields: [actorId], references: [id])
+
+  @@index([studioId, createdAt])
+  @@map("audit_log")
+}

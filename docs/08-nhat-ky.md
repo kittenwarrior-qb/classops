@@ -48,6 +48,13 @@ Không phải báo cáo. Chỉ cần đủ để tương lai hiểu.
 **Quyết định:** Dùng vàng ấm cho vắng, không dùng đỏ; chỉ hiện thông tin phụ khi sắp hết hạn hoặc vắng.
 **Nghi ngờ:** Cần đưa cho giáo viên dùng trong ca thật để biết lượng thông tin này đã đủ hay vẫn còn thừa.
 
+## 2026-07-23 — Chuyển kiến trúc
+
+**Làm:** Dựng pnpm workspace với `apps/web` (Vite), `apps/api` (NestJS), `packages/contracts`, OpenAPI, Prisma 7 và health e2e test.
+**Kẹt:** Chưa có `DATABASE_URL` thật nên mới generate schema/client, chưa chạy migration lên database.
+**Quyết định:** Xoá source Next.js và prototype vanilla sau khi Vite/Nest parity baseline pass; giữ ADR cũ làm lịch sử, thêm ADR-0009 làm quyết định hiện tại.
+**Nghi ngờ:** Chưa kiểm chứng API contract với người dùng thật; cần hoàn thiện auth và domain endpoints trước khi deploy.
+
 Mục **Nghi ngờ** quan trọng nhất. Đó là danh sách những thứ cần đi kiểm chứng.
 
 ---

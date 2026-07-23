@@ -40,7 +40,7 @@ thứ hai. Không phải khi mình nghĩ là "sau này chắc cần".
 ## Cấu trúc
 
 ```
-src/i18n/
+apps/web/src/i18n/
   vi.ts        từ điển — nguồn sự thật của mọi chuỗi
   index.ts     hàm t() có kiểu
   format.ts    ngày, giờ, số, tiền

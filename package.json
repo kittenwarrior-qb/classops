@@ -1,31 +1,19 @@
 {
-  "name": "classops",
-  "version": "0.1.0",
+  "name": "classops-workspace",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/**/*.test.ts"
-  },
   "packageManager": "pnpm@10.22.0",
-  "dependencies": {
-    "lucide-react": "0.468.0",
-    "next": "15.5.21",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+  "scripts": {
+    "dev:web": "pnpm --filter @classops/web dev",
+    "dev:api": "pnpm --filter @classops/api start:dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "format:check": "pnpm -r format:check"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.0.0",
-    "@types/node": "22.10.5",
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
-    "eslint": "8.57.1",
-    "eslint-config-next": "15.5.21",
-    "tailwindcss": "4.0.0",
-    "tsx": "4.19.2",
-    "typescript": "5.7.2"
+    "@eslint/js": "9.17.0",
+    "globals": "15.14.0",
+    "typescript-eslint": "8.20.0"
   }
 }

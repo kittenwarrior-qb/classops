@@ -88,16 +88,18 @@ Sau đó: đọc `docs/00-gia-dinh.md`, rồi đi quan sát một buổi học v
 
 ## Ứng dụng local
 
-Ứng dụng Next.js nằm trong `src/`. Bản hiện tại dùng dữ liệu ảo và lưu trạng
-thái thao tác trong trình duyệt để có thể test ngay, chưa kết nối database hoặc
-đăng nhập thật.
+Ứng dụng nằm trong `apps/web/`, API nằm trong `apps/api/`. Bản hiện tại dùng
+dữ liệu ảo ở frontend; API đã có health endpoint và OpenAPI, chưa kết nối
+database hoặc đăng nhập thật.
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev:web
+pnpm dev:api
 ```
 
-Mở `http://localhost:3000/`.
+Mở `http://localhost:5173/`. API chạy ở `http://localhost:3001/` và tài liệu
+OpenAPI ở `/docs`.
 
 Chạy toàn bộ kiểm tra trước khi commit:
 
@@ -109,15 +111,3 @@ pnpm build
 ```
 
 CI tương ứng nằm ở `.github/workflows/ci.yml`.
-
-## Prototype thử sớm
-
-Theo yêu cầu làm trước khi hoàn thành GĐ 0, prototype không backend nằm trong
-`prototype/`. Chỉ dùng dữ liệu ảo để kiểm tra luồng với giáo viên.
-
-```bash
-python -m http.server 4173 --directory prototype
-```
-
-Mở `http://localhost:4173/`. Prototype hiện có chọn lớp, chạm để đánh dấu
-người vắng, sinh tin nhắn và chia sẻ hoặc chép tin nhắn.

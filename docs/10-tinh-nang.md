@@ -14,7 +14,7 @@ gia hạn thì vẫn cần.
 
 | # | Tính năng | Ghi chú |
 |---|---|---|
-| A1 | Đăng nhập Google | Auth.js, một nút |
+| A1 | Đăng nhập Google | NestJS Passport, một nút |
 | A2 | Nhiều studio, nhiều chi nhánh | `studio_id` mọi bảng từ đầu |
 | A3 | Phân quyền chủ / giáo viên | Giáo viên chỉ thấy lớp mình dạy |
 | A4 | Quản lý lớp | Tạo, sửa, lưu trữ |

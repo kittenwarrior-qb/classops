@@ -159,17 +159,17 @@ chung ở cả hai kịch bản.
 
 | Lớp | Chọn |
 |---|---|
-| Framework | Next.js 15 App Router + TypeScript strict |
+| Frontend | Vite + React + TypeScript strict |
 | CSS | Tailwind v4 |
 | Component | shadcn/ui (copy vào repo, không phải dependency) |
 | Icon | lucide-react |
 | Font | Be Vietnam Pro (dựng dấu tiếng Việt chuẩn) |
-| Local DB | Dexie / IndexedDB — chỉ nếu kịch bản A |
-| API | tRPC |
-| ORM | Drizzle |
-| DB | Neon Postgres, region Singapore |
-| Auth | Auth.js, Google provider |
-| Hosting | Vercel, region `sin1` (mặc định là `iad1` ở Mỹ — phải đổi) |
+| Data fetching | TanStack Query |
+| API | NestJS REST + OpenAPI |
+| ORM | Prisma |
+| DB | PostgreSQL managed, region Singapore |
+| Auth | NestJS Passport + httpOnly session cookie |
+| Hosting | Frontend static + backend container, region Singapore |
 | Đo lường | PostHog + Sentry |
 
 Không cài thêm dependency nào nếu chưa hỏi.
@@ -206,7 +206,7 @@ Không emoji. Câu ngắn. Gọi người học theo `settings.studentNoun`.
 ### Ngôn ngữ — bắt buộc, xem `docs/11-ngon-ngu.md`
 
 - **Cấm chuỗi tiếng Việt hardcode trong component.** Mọi chuỗi nằm ở
-  `src/i18n/vi.ts`, gọi qua `t()` có kiểu
+  `apps/web/src/i18n/vi.ts`, gọi qua `t()` có kiểu
 - Danh từ chỉ người học luôn là biến `{noun}`, không viết cứng
 - Sắp xếp danh sách học viên **theo tên, không theo họ** ("Nguyễn Ý An" ở
   vần A). Dùng `Intl.Collator('vi')`

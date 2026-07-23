@@ -1,0 +1,21 @@
+{
+  "name": "@classops/contracts",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test": "echo contracts-no-tests",
+    "format:check": "prettier --check src"
+  },
+  "devDependencies": {
+    "eslint": "9.17.0",
+    "prettier": "3.5.3",
+    "typescript": "5.7.2"
+  }
+}

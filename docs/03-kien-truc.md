@@ -1,5 +1,9 @@
 # 03 — Kiến trúc và quyết định kỹ thuật
 
+> **Kiến trúc hiện tại:** Vite + React ở frontend, NestJS REST ở backend,
+> Prisma + PostgreSQL ở data layer. Quyết định Next.js cũ được thay thế bởi
+> `docs/adr/0009-chuyen-vite-nestjs.md`.
+
 > Đọc trước dòng code đầu tiên. Nhưng đừng đọc trước khi xong 00 và 01 —
 > chọn kỹ thuật khi chưa biết vấn đề là cách nhanh nhất để chọn sai.
 
@@ -20,17 +24,17 @@ Mọi quyết định dưới đây suy ra từ bốn dòng trên.
 
 | Lớp | Chọn | Lý do |
 |---|---|---|
-| Framework | Next.js 15 App Router + TypeScript | Một ngôn ngữ, một codebase, một lần deploy |
+| Frontend | Vite + React + TypeScript | SPA nhẹ, phù hợp công cụ nội bộ; không cần SSR/SEO |
 | CSS | Tailwind v4 | |
 | Component | shadcn/ui | Copy vào repo, không phải dependency — sửa thoải mái |
 | Icon | lucide-react | |
 | Font | Be Vietnam Pro | Dựng dấu tiếng Việt chuẩn; Inter/Roboto dấu xấu |
-| Local DB | Dexie (IndexedDB) | Chỉ cần nếu làm kịch bản A (offline) |
-| API | tRPC | Type-safe đầu-cuối, không phải viết client |
-| ORM | Drizzle | Schema là TypeScript, migration rõ ràng |
-| DB | Neon Postgres, region Singapore | Free tier thật |
-| Auth | Auth.js, Google provider | Giáo viên nào cũng có Gmail; SMS OTP tốn tiền |
-| Hosting | Vercel, region `sin1` | Mặc định là `iad1` (Mỹ) → phải đổi |
+| Data fetching | TanStack Query | Cache, retry và invalidation rõ ràng |
+| API | NestJS REST + OpenAPI | Module, guard, validation, contract và test rõ |
+| ORM | Prisma | Schema/migration/client thống nhất |
+| DB | PostgreSQL managed, region Singapore | Tách khỏi UI platform, backup/restore chủ động |
+| Auth | NestJS Passport + httpOnly session cookie | Auth nằm ở server boundary |
+| Hosting | Frontend static + backend container | Deploy độc lập, rollback riêng |
 | Đo lường | PostHog + Sentry | Để biết người dùng có tự mở app không |
 
 ### Vì sao không chọn Java/Spring
@@ -70,17 +74,11 @@ Một deploy. Chia module theo **nghiệp vụ**, không theo lớp kỹ thuật
 Không đụng microservice — một người làm.
 
 ```
-src/
-  modules/
-    identity/     # studio, user, vai trò
-    roster/       # học viên, lớp, ghi danh
-    attendance/   # buổi học, bản ghi điểm danh
-    credits/      # gói buổi, hạn thẻ    ← để trống đến GĐ3
-    notify/       # render template tin nhắn
-    reporting/    # sắp hết hạn, vắng nhiều
-  lib/            # db, auth, trpc, dexie
-  app/            # routes
-  components/ui/  # shadcn
+apps/
+  web/            # Vite + React, màn hình và client state
+  api/            # NestJS modules, REST controllers, Prisma boundary
+packages/
+  contracts/      # kiểu response/context dùng chung
 ```
 
 ### Ba quy tắc bắt buộc
@@ -126,13 +124,13 @@ Bấm Lưu
   "mất kết nối" — làm người dùng hoảng
 - **Test bắt buộc:** retry, idempotency, mất mạng giữa chừng
 
-Sync engine viết tách riêng trong `src/lib/sync/`.
+Sync engine viết tách riêng trong `apps/web/src/lib/sync/`.
 
 ---
 
 ## Deploy
 
-- Vercel region `sin1`, cấu hình trong `vercel.json`
+- Frontend deploy dạng static asset; backend deploy container ở Singapore
 - Neon region Singapore, bật connection pooling
 - Ba môi trường: production (main) / preview (mỗi PR) / local
 - Migration chạy trong GitHub Actions **trước** khi deploy, không chạy lúc
@@ -141,7 +139,7 @@ Sync engine viết tách riêng trong `src/lib/sync/`.
   object storage. Đừng tin hoàn toàn vào free tier
 - Tên miền riêng ngay từ đầu (~300k/năm)
 
-Không cần Docker cho hướng Next.js.
+Docker chỉ dùng cho backend và database tooling; frontend không cần runtime server.
 
 ---
 
@@ -155,7 +153,7 @@ Kiểm tra nhanh: nếu file settings xuất hiện `if`, `when`, `>`, hay một
 công thức → đã vượt ranh giới.
 
 ```ts
-// src/config/studio-settings.ts
+// apps/api/src/config/studio-settings.ts
 export const studioSettingsSchema = z.object({
   version: z.literal(1),
   studentNoun: z.enum(['bé','học viên','võ sinh','bạn nhỏ']).default('bé'),

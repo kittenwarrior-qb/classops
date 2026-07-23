@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { matchesSearch, removeDiacritics, sortByVietnameseName, vietnameseNameKey } from '../src/lib/vietnamese'
+import { matchesSearch, removeDiacritics, sortByVietnameseName, vietnameseNameKey } from './src/lib/vietnamese'
 
 test('sorts Vietnamese names by given name', () => {
   const names = ['Nguyễn Ý An', 'Trần Minh Châu', 'Lê Gia Hân']
