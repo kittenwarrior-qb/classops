@@ -26,6 +26,10 @@ jobs:
         run: pnpm lint
       - name: Typecheck
         run: pnpm typecheck
+      - name: Validate database schema
+        run: pnpm db:validate
+      - name: Check formatting
+        run: pnpm format:check
       - name: Unit tests
         run: pnpm test
       - name: Production build

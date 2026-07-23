@@ -7,7 +7,7 @@ Xuất phát từ việc đi học một lớp nhảy hiphop và thấy studio (
 quản lý học viên, học phí và hạn thẻ hoàn toàn bằng tay trên Google Form
 và Zalo.
 
-> **Trạng thái: GĐ 0 — Khám phá. Chưa xây gì.**
+> **Trạng thái: đang xây có điều kiện trước khi hoàn tất khám phá.**
 > Vấn đề cốt lõi chưa được xác nhận. Xem [docs/00-gia-dinh.md](docs/00-gia-dinh.md).
 
 ---
@@ -88,14 +88,22 @@ Sau đó: đọc `docs/00-gia-dinh.md`, rồi đi quan sát một buổi học v
 
 ## Ứng dụng local
 
-Ứng dụng nằm trong `apps/web/`, API nằm trong `apps/api/`. Bản hiện tại dùng
-dữ liệu ảo ở frontend; API đã có health endpoint và OpenAPI, chưa kết nối
-database hoặc đăng nhập thật.
+Ứng dụng nằm trong `apps/web/`, API nằm trong `apps/api/`. Frontend chạy được
+với dữ liệu ảo khi chưa cấu hình studio; khi có `VITE_API_URL` và
+`VITE_STUDIO_ID`, màn hình lớp/điểm danh dùng API thật. API dùng Prisma với
+migration PostgreSQL, chưa có đăng nhập production.
 
 ```bash
 pnpm install
 pnpm dev:web
 pnpm dev:api
+```
+
+Biến môi trường frontend:
+
+```bash
+VITE_API_URL=http://localhost:3001/api
+VITE_STUDIO_ID=<uuid-cua-studio>
 ```
 
 Mở `http://localhost:5173/`. API chạy ở `http://localhost:3001/` và tài liệu
@@ -108,6 +116,8 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
+pnpm format:check
+pnpm db:validate
 ```
 
 CI tương ứng nằm ở `.github/workflows/ci.yml`.
