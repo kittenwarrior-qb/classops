@@ -22,6 +22,7 @@ model Studio {
   classes    Class[]
   students   Student[]
   enrollments Enrollment[]
+  attendances Attendance[]
   auditLogs  AuditLog[]
 
   @@map("studios")
@@ -53,6 +54,7 @@ model Class {
   studio      Studio   @relation(fields: [studioId], references: [id])
   teacher     User?    @relation(fields: [teacherId], references: [id])
   enrollments Enrollment[]
+  attendances Attendance[]
 
   @@index([studioId, archivedAt])
   @@map("classes")
@@ -65,6 +67,7 @@ model Student {
   archivedAt  DateTime? @map("archived_at")
   studio      Studio   @relation(fields: [studioId], references: [id])
   enrollments Enrollment[]
+  attendances Attendance[]
 
   @@index([studioId, archivedAt])
   @@map("students")
@@ -84,6 +87,22 @@ model Enrollment {
   @@index([studioId, classId])
   @@index([studioId, studentId])
   @@map("enrollments")
+}
+
+model Attendance {
+  id          String   @id @default(uuid()) @db.Uuid
+  studioId    String   @db.Uuid @map("studio_id")
+  classId     String   @db.Uuid @map("class_id")
+  studentId   String   @db.Uuid @map("student_id")
+  date        DateTime @db.Date
+  archivedAt  DateTime? @map("archived_at")
+  studio      Studio   @relation(fields: [studioId], references: [id])
+  class       Class    @relation(fields: [classId], references: [id])
+  student     Student  @relation(fields: [studentId], references: [id])
+
+  @@unique([studioId, classId, studentId, date])
+  @@index([studioId, classId, date, archivedAt])
+  @@map("attendance")
 }
 
 model AuditLog {

@@ -1,28 +1,35 @@
-import { Test } from '@nestjs/testing'
-import request from 'supertest'
-import { AppModule } from '../src/app.module'
+import { Test } from "@nestjs/testing";
+import request from "supertest";
+import { AppModule } from "../src/app.module";
+import { CLASSES_REPOSITORY } from "../src/classes";
 
-describe('Classes scope', () => {
-  it('requires an explicit studio id', async () => {
-    const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile()
-    const app = moduleRef.createNestApplication()
-    await app.init()
+describe("Classes scope", () => {
+  it("requires an explicit studio id", async () => {
+    const moduleRef = await Test.createTestingModule({ imports: [AppModule] })
+      .overrideProvider(CLASSES_REPOSITORY)
+      .useValue({ listByStudio: async () => [] })
+      .compile();
+    const app = moduleRef.createNestApplication();
+    await app.init();
 
-    await request(app.getHttpServer()).get('/classes').expect(400)
-    await app.close()
-  })
+    await request(app.getHttpServer()).get("/classes").expect(400);
+    await app.close();
+  });
 
-  it('returns data scoped to the requested studio', async () => {
-    const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile()
-    const app = moduleRef.createNestApplication()
-    await app.init()
+  it("returns data scoped to the requested studio", async () => {
+    const moduleRef = await Test.createTestingModule({ imports: [AppModule] })
+      .overrideProvider(CLASSES_REPOSITORY)
+      .useValue({ listByStudio: async () => [] })
+      .compile();
+    const app = moduleRef.createNestApplication();
+    await app.init();
 
-    const studioId = '11111111-1111-4111-8111-111111111111'
+    const studioId = "11111111-1111-4111-8111-111111111111";
     await request(app.getHttpServer())
-      .get('/classes')
-      .set('x-studio-id', studioId)
+      .get("/classes")
+      .set("x-studio-id", studioId)
       .expect(200)
-      .expect({ studioId, items: [] })
-    await app.close()
-  })
-})
+      .expect({ studioId, items: [] });
+    await app.close();
+  });
+});
